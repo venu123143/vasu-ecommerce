@@ -2,6 +2,7 @@
 import { CSSProperties, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
+import 'styled-jsx/style.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import {  SyncLoader } from "react-spinners";

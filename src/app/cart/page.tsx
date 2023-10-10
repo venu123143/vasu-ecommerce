@@ -15,7 +15,6 @@ const Cart = () => {
 
     const cartTotal = cart.reduce((total: number, item: any) => total + item.price * item.quantity, 0);
 
-
     if (typeof window !== 'undefined' ) {
         var userIsAuthenticated = localStorage.getItem("currentUser") === null
 
