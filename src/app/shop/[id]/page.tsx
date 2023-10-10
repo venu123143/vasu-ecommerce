@@ -4,7 +4,7 @@ import axios from "axios";
 import { useParams } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { ClipLoader, SyncLoader } from "react-spinners";
+import {  SyncLoader } from "react-spinners";
 import { addToCart } from "@/redux/features/auth-slice";
 import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';

@@ -9,14 +9,27 @@ type InitialState = {
     cart: any
 }
 
-const initialState: InitialState = {
-    value: "",
-    allUsers: localStorage.getItem("allUsers") ? JSON.parse(localStorage.getItem("allUsers") as string) : [],
-    cart: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart") as string) : []
-}
+const getInitialState = (): InitialState => {
+    if (typeof window !== "undefined") {
+        return {
+            value: "",
+            allUsers: localStorage.getItem("allUsers")
+                ? JSON.parse(localStorage.getItem("allUsers") as string)
+                : [],
+            cart: localStorage.getItem("cart")
+                ? JSON.parse(localStorage.getItem("cart") as string)
+                : [],
+        };
+    }
+    return {
+        value: "",
+        allUsers: [],
+        cart: [],
+    };
+};
 export const authSlice = createSlice({
     name: "auth",
-    initialState,
+    initialState: getInitialState(),
     reducers: {
         handleValueChange: (state, action: PayloadAction<string>) => {
             state.value = action.payload
@@ -27,9 +40,11 @@ export const authSlice = createSlice({
                 toast.error("user already exists")
             }
             else {
-                state.allUsers.push(action.payload)
-                localStorage.setItem("allUsers", JSON.stringify(state.allUsers))
-                toast.success("user registered succesfully")
+                if (typeof window !== 'undefined') {
+                    state.allUsers.push(action.payload)
+                    localStorage.setItem("allUsers", JSON.stringify(state.allUsers))
+                    toast.success("user registered succesfully")
+                }
             }
         },
         addToCart: (state, action) => {
@@ -38,12 +53,14 @@ export const authSlice = createSlice({
 
             if (existingItem) {
                 existingItem.quantity += 1;
-                localStorage.setItem("cart", JSON.stringify(state.cart))
-
+                if (typeof window !== 'undefined') {
+                    localStorage.setItem("cart", JSON.stringify(state.cart))
+                }
             } else {
-                state.cart.push({ id, title, price, quantity: 1, thumbnail });
-                localStorage.setItem("cart", JSON.stringify(state.cart))
-
+                if (typeof window !== 'undefined') {
+                    state.cart.push({ id, title, price, quantity: 1, thumbnail });
+                    localStorage.setItem("cart", JSON.stringify(state.cart))
+                }
             }
         },
         removeFromCart: (state, action) => {
@@ -53,12 +70,14 @@ export const authSlice = createSlice({
             if (itemIndex !== -1) {
                 if (state.cart[itemIndex].quantity > 1) {
                     state.cart[itemIndex].quantity -= 1;
-                    localStorage.setItem("cart", JSON.stringify(state.cart))
-
+                    if (typeof window !== 'undefined') {
+                        localStorage.setItem("cart", JSON.stringify(state.cart))
+                    }
                 } else {
-                    state.cart.splice(itemIndex, 1);
-                    localStorage.setItem("cart", JSON.stringify(state.cart))
-
+                    if (typeof window !== 'undefined') {
+                        state.cart.splice(itemIndex, 1);
+                        localStorage.setItem("cart", JSON.stringify(state.cart))
+                    }
                 }
             }
         }

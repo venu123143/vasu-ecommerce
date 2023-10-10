@@ -1,5 +1,10 @@
 "use client";
-import Navbar from '@/components/Navbar';
+// import Navbar from '@/components/Navbar';
+import dynamic from 'next/dynamic'
+ 
+export const DynamicHeader = dynamic(() => import('../components/Navbar'), {
+  ssr: false,
+})
 import axios from 'axios';
 import Link from 'next/link';
 import React from 'react';
@@ -18,7 +23,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <Navbar />
+      <DynamicHeader />
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% text-white py-20">
         <div className="container mx-auto text-center">

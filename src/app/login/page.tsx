@@ -26,9 +26,11 @@ const LoginPage = () => {
     const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('currentUser');
-        if (storedUser) {
-            setCurrentUser(JSON.parse(storedUser));
+        if (typeof window !== 'undefined') {
+            var storedUser = localStorage.getItem('currentUser');
+            if (storedUser) {
+                setCurrentUser(JSON.parse(storedUser));
+            }
         }
     }, []);
 
@@ -37,7 +39,7 @@ const LoginPage = () => {
         const user = allUsers.find(
             (user: any) => user.email === formData.email && user.password === formData.password
         );
-        if (user) {
+        if (user && typeof window !== 'undefined') {
             setCurrentUser(user);
             localStorage.setItem('currentUser', JSON.stringify(user));
             router.refresh()
@@ -47,11 +49,13 @@ const LoginPage = () => {
         }
     };
     useEffect(() => {
-        const userIsAuthenticated = localStorage.getItem('currentUser') !== null;
-
-        if (userIsAuthenticated) {
-            router.push('/'); 
+        if (typeof window !== 'undefined') {
+            var userIsAuthenticated = localStorage.getItem('currentUser') !== null;
+            if (userIsAuthenticated) {
+                router.push('/');
+            }
         }
+
     }, []);
 
     return (

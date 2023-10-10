@@ -1,11 +1,11 @@
 
-import Navbar from '@/components/Navbar';
 import React from 'react';
+import { DynamicHeader } from '../page';
 
 const LoginLayout = ({ children }: any) => {
     return (
         <div>
-            <Navbar />
+            <DynamicHeader />
             {children}
         </div>
     );

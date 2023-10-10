@@ -5,6 +5,10 @@ import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
 import { ToastContainer } from 'react-toastify'
 
+
+// Use DynamicComponent in your page
+
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {

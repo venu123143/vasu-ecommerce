@@ -14,13 +14,15 @@ import { SyncLoader } from 'react-spinners';
 const ShopPage = () => {
     const dispatch = useDispatch()
     const router = useRouter()
-    const [products, setProducts] = useState<any[]>([]); 
+    const [products, setProducts] = useState<any[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
     const [categoryFilter, setCategoryFilter] = useState('');
     const [sortOption, setSortOption] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const { value } = useSelector((state: RootState) => state.auth)
-    const currentUser = localStorage.getItem("currentUser")
+
+    const currentUser = typeof window !== 'undefined' ? localStorage.getItem("currentUser") : null;
+
 
     const handleAddToCart = (product: any) => {
         if (currentUser !== null) {
@@ -30,7 +32,9 @@ const ShopPage = () => {
         else {
             router.push("/login")
         }
+        console.log("empty", product);
     };
+
 
     const [pageNumber, setPageNumber] = useState(0);
     const productsPerPage = 8;
@@ -49,7 +53,7 @@ const ShopPage = () => {
                 const res = await axios.get("https://dummyjson.com/products?limit=100");
                 if (res) {
                     setProducts(res.data.products);
-                    setFilteredProducts(res.data.products); 
+                    setFilteredProducts(res.data.products);
                     setIsLoading(false)
                 }
             } catch (error) {
@@ -71,7 +75,7 @@ const ShopPage = () => {
                 const searchValueMatch = searchValue === '' || titleLower.includes(searchValue.toLowerCase());
                 return categoryMatch && searchValueMatch;
             });
-            setFilteredProducts(filtered); 
+            setFilteredProducts(filtered);
         }
         setCategoryFilter(category);
     };
@@ -133,7 +137,7 @@ const ShopPage = () => {
                 aria-label="Loading Spinner"
                 data-testid="loader"
             />
-        ); 
+        );
     }
     return (
         <div className="container mx-auto mt-8">
@@ -209,11 +213,11 @@ const ShopPage = () => {
                 ))}
             </div>
 
-         
+
             <ReactPaginate
                 pageCount={pageCount}
                 pageRangeDisplayed={5}
-                marginPagesDisplayed={2} 
+                marginPagesDisplayed={2}
                 onPageChange={handlePageChange}
                 containerClassName="flex justify-center mt-16"
                 pageClassName="inline-block mx-1"

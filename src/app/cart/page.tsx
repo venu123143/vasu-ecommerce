@@ -14,25 +14,30 @@ const Cart = () => {
     };
 
     const cartTotal = cart.reduce((total: number, item: any) => total + item.price * item.quantity, 0);
-    const userIsAuthenticated = localStorage.getItem('currentUser') === null;
-    if (userIsAuthenticated) {
-        return (
-            <div className="flex flex-col gap-4 justify-center items-center text-center">
-                <h1 className="text-xl font-semibold mb-4">
-                    Please log in to view your cart.
-                </h1>
-                <Link
-                    href="/login"
-                    className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full inline-block text-center text-lg font-semibold transition duration-300"
-                >
-                    Go to Login
-                </Link>
-            </div>
-        )
+
+
+    if (typeof window !== 'undefined' ) {
+        var userIsAuthenticated = localStorage.getItem("currentUser") === null
+
+        if (userIsAuthenticated) {
+            return (
+                <div className="flex flex-col gap-4 justify-center items-center text-center">
+                    <h1 className="text-xl font-semibold mb-4">
+                        Please log in to view your cart.
+                    </h1>
+                    <Link
+                        href="/login"
+                        className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-full inline-block text-center text-lg font-semibold transition duration-300"
+                    >
+                        Go to Login
+                    </Link>
+                </div>
+            )
+        }
     }
     return (
         <div>
-            {cart.length === 0 ? ( 
+            {cart.length === 0 ? (
                 <div className="text-center py-10">
                     <h2 className="text-2xl font-semibold mb-4">Your cart is empty</h2>
                     <p className="text-gray-500">Looks like you havent added any items to your cart yet.</p>
@@ -59,7 +64,7 @@ const Cart = () => {
                                                     <h3>
                                                         <h4>{item.title}</h4>
                                                     </h3>
-                                                    <p className="ml-4 mr-5">${(item.price * item.quantity).toFixed(2)}</p> 
+                                                    <p className="ml-4 mr-5">${(item.price * item.quantity).toFixed(2)}</p>
                                                 </div>
                                                 <p className="mt-1 text-sm text-gray-500">{item.color}</p>
                                             </div>

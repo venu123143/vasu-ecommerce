@@ -45,10 +45,13 @@ const SignupPage = () => {
         });
     };
     useEffect(() => {
-        const userIsAuthenticated = localStorage.getItem('currentUser') !== null;
-        if (userIsAuthenticated) {
-            router.push('/');
+        if (typeof window !== 'undefined') {
+            var userIsAuthenticated = localStorage.getItem("currentUser") !== null
+            if (userIsAuthenticated) {
+                router.push('/');
+            }
         }
+
     }, []);
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 py-14">

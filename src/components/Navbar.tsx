@@ -11,12 +11,15 @@ import { RootState } from '@/redux/store'
 import { handleValueChange } from '@/redux/features/auth-slice'
 
 
+// Use DynamicComponent in your page
+
+
 const Navbar = () => {
     const dispatch = useDispatch()
     const router = useRouter()
     const pathName = usePathname()
     const [isHovered, setIsHovered] = useState(false);
-    const [user, setUser] = useState(null)
+    // const [user, setUser] = useState(null)
     const [active, setActive] = useState(false)
     const { value } = useSelector((state: RootState) => state.auth)
     const currentUser = JSON.parse(localStorage.getItem("currentUser") as string)
