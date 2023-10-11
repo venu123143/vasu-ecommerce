@@ -60,16 +60,19 @@ const ProductPage = () => {
             />
         );
     }
-    const currentUser = localStorage.getItem("currentUser")
-    const handleAddToCart = (product: any) => {
-        if (currentUser !== null) {
-            dispatch(addToCart(product));
-            toast.success("item added to cart")
-        }
-        else {
-            router.push("/login")
-        }
-    };
+    if (typeof window !== 'undefined') {
+        const currentUser = localStorage.getItem("currentUser")
+        var handleAddToCart = (product: any) => {
+            if (currentUser !== null) {
+                dispatch(addToCart(product));
+                toast.success("item added to cart")
+            }
+            else {
+                router.push("/login")
+            }
+        };
+
+    }
     return (
         <div className="container mx-auto mt-4 p-4">
             <Link href="/shop">
