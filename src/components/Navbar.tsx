@@ -11,7 +11,6 @@ import { RootState } from '@/redux/store'
 import { handleValueChange } from '@/redux/features/auth-slice'
 
 
-// Use DynamicComponent in your page
 
 
 const Navbar = () => {
@@ -19,11 +18,11 @@ const Navbar = () => {
     const router = useRouter()
     const pathName = usePathname()
     const [isHovered, setIsHovered] = useState(false);
-    // const [user, setUser] = useState(null)
     const [active, setActive] = useState(false)
     const { value } = useSelector((state: RootState) => state.auth)
     const currentUser = JSON.parse(localStorage.getItem("currentUser") as string)
-   
+
+    console.log(value, "val");
 
     const handleMouseEnter = () => {
         setIsHovered(true);
@@ -45,7 +44,16 @@ const Navbar = () => {
             setActive(false)
         }
     })
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        dispatch(handleValueChange(value));
+        router.push("/shop");
+    };
+    const handleInputChange = (e: any) => {
+        console.log(e.target.value, "e");
 
+        dispatch(handleValueChange(e.target.value));
+    };
     return (
 
         <nav className={`${active === true ? "shadow-sm fixed top-0 left-0 w-full z-10 transition-all ease-in-out " : null} bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90% p-4 w-full`}>
@@ -53,18 +61,18 @@ const Navbar = () => {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center">
                         <a href="/" className="text-white font-bold text-xl">MyShop</a>
-                        <div className="ml-4">
+                        <form className="ml-4" onSubmit={handleSubmit}>
                             <input
                                 type="text"
                                 placeholder="Search products..."
                                 className="border-2 border-gray-300 rounded-md py-1 px-2"
                                 value={value}
-                                onChange={(e: any) => {
-                                    dispatch(handleValueChange(e.target.value))
-                                    router.push("/shop")
-                                }}
+                                onChange={
+                                    handleInputChange
+                                }
                             />
-                        </div>
+                            <button type="submit" style={{ display: 'none' }}></button>
+                        </form>
                     </div>
                     <div className="hidden md:flex space-x-4">
                         <Link href="/" className={`text-white hover:text-gray-300 ${pathName === '/' ? 'underline' : ''

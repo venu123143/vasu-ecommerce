@@ -1,7 +1,7 @@
 "use client";
 // import Navbar from '@/components/Navbar';
 import dynamic from 'next/dynamic'
- 
+
 export const DynamicHeader = dynamic(() => import('../components/Navbar'), {
   ssr: false,
 })
@@ -40,7 +40,7 @@ const HomePage = () => {
           <h2 className="text-3xl font-semibold mb-8">Featured Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {products && products?.map((product: any) => (
-              <div key={product.id} className="bg-white rounded-lg overflow-hidden shadow-md">
+              <div key={product.id}  className="bg-white rounded-lg overflow-hidden shadow-md cursor-none">
                 <img src={product.image} alt={product.title} className="w-full h-56 object-cover" />
                 <div className="p-4">
                   <h3 className="text-xl font-semibold mb-2">{product.title.length > 20
@@ -53,9 +53,7 @@ const HomePage = () => {
                   </p>
                   <div className="flex justify-between items-center">
                     <span className="text-xl font-semibold">${product.price.toFixed(2)}</span>
-                    {/* <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-4 rounded-full">
-                      Add to Cart
-                    </button> */}
+
                   </div>
                 </div>
               </div>

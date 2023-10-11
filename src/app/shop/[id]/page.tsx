@@ -2,10 +2,8 @@
 import { CSSProperties, useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "next/navigation";
-import 'styled-jsx/style.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import {  SyncLoader } from "react-spinners";
+import { AiFillStar } from "react-icons/ai"
+import { SyncLoader } from "react-spinners";
 import { addToCart } from "@/redux/features/auth-slice";
 import { useRouter } from 'next/navigation';
 import 'react-toastify/dist/ReactToastify.css';
@@ -19,7 +17,7 @@ const ProductPage = () => {
     const router = useRouter()
     const [product, setProduct] = useState<any>({});
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams()
 
     const handleThumbnailClick = (index: number) => {
@@ -31,10 +29,10 @@ const ProductPage = () => {
             try {
                 const res: any = await axios.get(`https://dummyjson.com/products/${id}`);
                 setProduct(res.data);
-                setIsLoading(false); 
+                setIsLoading(false);
             } catch (error) {
                 console.error("Error fetching product data:", error);
-                setIsLoading(false); 
+                setIsLoading(false);
             }
         };
         if (id) {
@@ -60,7 +58,7 @@ const ProductPage = () => {
                 aria-label="Loading Spinner"
                 data-testid="loader"
             />
-        ); 
+        );
     }
     const currentUser = localStorage.getItem("currentUser")
     const handleAddToCart = (product: any) => {
@@ -97,13 +95,11 @@ const ProductPage = () => {
                             {product.discountPercentage}% off
                         </p>
                         <p className="text-yellow-500">Rating:</p>
-                        <div className="ml-2">
+                        <div className="ml-2 flex">
                             {Array.from({ length: 5 }).map((_, index) => (
-                                <FontAwesomeIcon
-                                    key={index}
-                                    icon={index < Math.round(product.rating) ? faStar : ["far", "star"]}
-                                    className="text-yellow-500"
-                                />
+                                <span key={index} className="text-yellow-500">
+                                    {index < Math.round(product.rating) ? <AiFillStar /> : ""}
+                                </span>
                             ))}
                         </div>
                     </div>

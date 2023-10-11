@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 const SignupPage = () => {
     const dispatch = useDispatch();
     const router = useRouter()
-    const { allUsers } = useSelector((state: RootState) => state.auth);
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -35,7 +34,6 @@ const SignupPage = () => {
     const handleSubmit = (e: any) => {
         e.preventDefault();
         dispatch(storingAllUsers(formData));
-        console.log('Form data submitted:', formData);
         setFormData({
             firstName: '',
             lastName: '',
@@ -43,6 +41,7 @@ const SignupPage = () => {
             password: '',
             confirmPassword: '',
         });
+        router.push("/login")
     };
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -51,7 +50,6 @@ const SignupPage = () => {
                 router.push('/');
             }
         }
-
     }, []);
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 py-14">

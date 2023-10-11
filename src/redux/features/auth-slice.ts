@@ -55,7 +55,7 @@ export const authSlice = createSlice({
                 existingItem.quantity += 1;
                 if (typeof window !== 'undefined') {
                     localStorage.setItem("cart", JSON.stringify(state.cart))
-                }
+                }   
             } else {
                 if (typeof window !== 'undefined') {
                     state.cart.push({ id, title, price, quantity: 1, thumbnail });
